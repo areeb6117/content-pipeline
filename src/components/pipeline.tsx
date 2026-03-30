@@ -137,7 +137,10 @@ export default function Pipeline() {
     finally { setImageLoadingIds((prev) => { const next = new Set(prev); next.delete(postId); return next; }); }
   }, [posts, articles]);
 
-  const copyPost = (content: string) => { navigator.clipboard.writeText(content); };
+  // Strip markdown artifacts that Claude sometimes outputs despite instructions
+  const cleanContent = (text: string) => text.replace(/\*\*/g, "").replace(/\*([^*]+)\*/g, "$1").replace(/—/g, "-");
+
+  const copyPost = (content: string) => { navigator.clipboard.writeText(cleanContent(content)); };
   const downloadImage = (imageUrl: string, postId: string) => {
     const a = document.createElement("a"); a.href = imageUrl; a.download = `affitor-${postId}.png`;
     document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(imageUrl);
@@ -464,7 +467,7 @@ export default function Pipeline() {
                     </div>
                   </div>
                   <div className="whitespace-pre-wrap text-sm leading-relaxed rounded-lg p-4" style={{ background: "var(--bg-secondary)", color: "var(--text-primary)" }}>
-                    {post.content || <span className="flex items-center gap-2" style={{ color: "var(--text-tertiary)" }}><Spinner /> Generating...</span>}
+                    {post.content ? cleanContent(post.content) : <span className="flex items-center gap-2" style={{ color: "var(--text-tertiary)" }}><Spinner /> Generating...</span>}
                   </div>
                   {isImageLoading && (
                     <div className="mt-3 flex items-center gap-2 text-xs" style={{ color: "var(--text-brand)" }}><Spinner /> Generating infographic...</div>

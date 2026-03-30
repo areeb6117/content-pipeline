@@ -39,5 +39,6 @@ ${lengthGuide[length]}
 - Problem → Action → Result → Lesson arc
 - Use specific numbers throughout
 - Short paragraphs, narrative style
-- NEVER use em dashes, markdown bold (**), or source links in the text`;
+- ZERO asterisks (*) in output. No bold markdown. No ** anywhere. This is non-negotiable.
+- No em dashes. No URLs. Plain text only.`;
 }

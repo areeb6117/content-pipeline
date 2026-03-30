@@ -37,5 +37,6 @@ ${lengthGuide[length]}
 - Every item must have specific data
 - Use numbered list (1, 2, 3...) with → for sub-details
 - No generic filler
-- NEVER use em dashes, markdown bold (**), or source links in the text`;
+- ZERO asterisks (*) in output. No bold markdown. No ** anywhere. This is non-negotiable.
+- No em dashes. No URLs. Plain text only.`;
 }

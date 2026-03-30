@@ -41,5 +41,6 @@ ${lengthGuide[length]}
 - Every step must be specific and actionable, not vague
 - Use real tools, numbers, and examples
 - Tone: practical, mentor-to-peer, not lecturing
-- NEVER use em dashes, markdown bold (**), or source links in the text`;
+- ZERO asterisks (*) in output. No bold markdown. No ** anywhere. This is non-negotiable.
+- No em dashes. No URLs. Plain text only.`;
 }

@@ -38,5 +38,6 @@ ${lengthGuide[length]}
 - Use specific data to support every claim
 - Short paragraphs, 1-2 sentences each
 - No bullet points for POV, this is narrative
-- NEVER use em dashes, markdown bold (**), or source links in the text`;
+- ZERO asterisks (*) in output. No bold markdown. No ** anywhere. This is non-negotiable.
+- No em dashes. No URLs. Plain text only.`;
 }

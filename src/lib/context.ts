@@ -16,13 +16,14 @@ export const BRAND_CONTEXT = `## Son Piaz — LinkedIn Content Context
 6. ALWAYS write in English
 7. Soft CTA at end - mention Affitor naturally, not hard sell
 
-### STRICT Formatting Rules (never break these)
-- NEVER use em dashes (—). Use hyphens (-) or commas instead.
-- NEVER use markdown bold (**text**) or any markdown formatting.
-- NEVER use asterisks for emphasis.
-- NEVER cite or link sources in the post text. No URLs, no "Source:", no "According to [link]".
-- Use plain text only. LinkedIn does not render markdown.
-- For emphasis, use CAPS for 1-2 key words or Unicode bold (𝗯𝗼𝗹𝗱) sparingly.
+### STRICT Formatting Rules (CRITICAL - break these and the output is REJECTED)
+- ABSOLUTELY NO asterisks (*) anywhere in the output. Not for bold, not for lists, not for anything.
+- ABSOLUTELY NO markdown formatting of any kind. No **, no *, no #, no [], no ().
+- ABSOLUTELY NO em dashes (—). Use hyphens (-) or commas instead.
+- ABSOLUTELY NO source citations or URLs in the post text.
+- Output MUST be plain text only. LinkedIn does not render markdown.
+- For emphasis, use CAPS for 1-2 key words only. Example: "This is the REAL opportunity."
+- For list items, use numbers (1. 2. 3.) or → arrows. Never asterisk bullets.
 
 ### Content Patterns That Perform Well
 - Toplist: "X new [things] for [audience] in [timeframe]" — numbered items with key details
