@@ -182,6 +182,16 @@ export default function Pipeline() {
                           {article.tag && <span className="px-1.5 py-px rounded text-[10px] font-medium bg-info-bg text-info-text">{article.tag}</span>}
                         </div>
                         <p className="text-xs text-text-secondary mt-1 line-clamp-2">{article.summary}</p>
+                        <a
+                          href={article.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1 text-[11px] text-text-tertiary hover:text-text-brand mt-1.5 transition-colors"
+                        >
+                          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 3H3v10h10v-3M9 2h5v5M14 2L7 9"/></svg>
+                          {article.url.replace(/^https?:\/\//, "").substring(0, 60)}{article.url.length > 68 ? "..." : ""}
+                        </a>
                       </div>
                     </div>
                   </div>
