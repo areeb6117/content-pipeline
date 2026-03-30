@@ -13,8 +13,6 @@ const FORMATS: { value: ContentFormat; label: string; icon: string; desc: string
   { value: "how-to", label: "How-to", icon: "🛠️", desc: "Step-by-step guide" },
 ];
 
-/* ── Shared sub-components ── */
-
 function Spinner({ size = 14 }: { size?: number }) {
   return (
     <svg className="animate-spin" width={size} height={size} viewBox="0 0 24 24" fill="none">
@@ -23,39 +21,6 @@ function Spinner({ size = 14 }: { size?: number }) {
     </svg>
   );
 }
-
-function Btn({ children, variant = "primary", disabled, onClick, className = "" }: {
-  children: React.ReactNode; variant?: "primary" | "outline" | "ghost"; disabled?: boolean; onClick?: () => void; className?: string;
-}) {
-  const base = "inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-all h-9 px-4 disabled:opacity-40 disabled:cursor-not-allowed";
-  const variants = {
-    primary: "bg-[--primary] text-white hover:bg-[--primary-hover]",
-    outline: "border border-[--border-secondary] text-[--text-primary] hover:bg-[--bg-hover]",
-    ghost: "text-[--text-brand] hover:bg-[--bg-brand]",
-  };
-  return <button className={`${base} ${variants[variant]} ${className}`} disabled={disabled} onClick={onClick}>{children}</button>;
-}
-
-function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`bg-white rounded-xl border border-[--border-primary] p-5 ${className}`}>{children}</div>;
-}
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return <div className="text-[13px] font-semibold text-[--text-primary] mb-3">{children}</div>;
-}
-
-function Chip({ selected, onClick, children }: { selected: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
-        selected ? "bg-[--bg-brand] border-[--primary] text-[--text-brand]" : "bg-white border-[--border-primary] text-[--text-secondary] hover:border-[--border-tertiary]"
-      }`}
-    >{children}</button>
-  );
-}
-
-/* ── Main pipeline ── */
 
 export default function Pipeline() {
   const [step, setStep] = useState(0);
@@ -76,8 +41,6 @@ export default function Pipeline() {
 
   const selectedArticles = articles.filter((a) => a.selected);
   const cleanContent = (text: string) => text.replace(/\*\*/g, "").replace(/\*([^*]+)\*/g, "$1").replace(/—/g, "-");
-
-  /* ── Handlers ── */
 
   const handleResearch = useCallback(async () => {
     if (!topic.trim()) return;
@@ -135,253 +98,205 @@ export default function Pipeline() {
   const copyPost = (content: string) => { navigator.clipboard.writeText(cleanContent(content)); };
   const downloadImage = (imageUrl: string, postId: string) => { const a = document.createElement("a"); a.href = imageUrl; a.download = `affitor-${postId}.png`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(imageUrl); };
 
-  /* ── Render ── */
+  const chip = (selected: boolean) =>
+    selected
+      ? "bg-bg-brand border-primary text-text-brand"
+      : "bg-bg-primary border-border-primary text-text-secondary hover:border-border-tertiary";
 
   return (
-    <div className="min-h-screen bg-[--bg-secondary]">
-      {/* Header — 64px, white bg, bottom border */}
-      <header className="h-16 bg-white border-b border-[--border-primary] sticky top-0 z-10">
+    <div className="min-h-screen bg-bg-secondary">
+      <header className="h-16 bg-bg-primary border-b border-border-primary sticky top-0 z-10">
         <div className="max-w-[960px] mx-auto px-6 h-full flex items-center gap-2.5">
           <Image src="/affitor-logo.svg" alt="Affitor" width={20} height={20} />
-          <span className="text-sm font-semibold text-[--text-primary]">Affitor</span>
-          <span className="text-sm font-semibold text-[--primary]">Content Pipeline</span>
+          <span className="text-sm font-semibold text-text-primary">Affitor</span>
+          <span className="text-sm font-semibold text-primary">Content Pipeline</span>
         </div>
       </header>
 
       <div className="max-w-[960px] mx-auto px-6 py-5">
-        {/* Step indicator */}
         <nav className="flex items-center gap-1.5 mb-5">
           {STEPS.map((s, i) => (
             <div key={s} className="flex items-center gap-1.5">
-              <button
-                onClick={() => i < step && !loading && setStep(i)}
+              <button onClick={() => i < step && !loading && setStep(i)}
                 className={`h-8 px-3 rounded-lg text-[13px] font-medium transition-all flex items-center gap-1.5 ${
-                  i === step ? "bg-[--primary] text-white"
-                  : i < step && !loading ? "bg-[--bg-brand] text-[--text-brand] cursor-pointer hover:bg-blue-100"
-                  : "bg-[--bg-tertiary] text-[--text-tertiary] cursor-default"
+                  i === step ? "bg-primary text-white"
+                  : i < step && !loading ? "bg-bg-brand text-text-brand cursor-pointer hover:bg-primary-light"
+                  : "bg-bg-tertiary text-text-tertiary cursor-default"
                 }`}
               >{i + 1} {s}</button>
-              {i < STEPS.length - 1 && <span className="text-[--text-tertiary] text-xs">→</span>}
+              {i < STEPS.length - 1 && <span className="text-text-tertiary text-xs">→</span>}
             </div>
           ))}
         </nav>
 
-        {/* Error */}
         {error && (
-          <div className="mb-4 px-4 py-2.5 rounded-lg text-[13px] flex items-center justify-between bg-[--error-bg] text-[--error-text] border border-red-200">
+          <div className="mb-4 px-4 py-2.5 rounded-lg text-[13px] flex items-center justify-between bg-error-bg text-error-text border border-error/20">
             <span>{error}</span>
             <button onClick={() => setError(null)} className="font-medium text-xs hover:underline ml-4">Dismiss</button>
           </div>
         )}
 
-        {/* ══ Step 1: Research ══ */}
         {step === 0 && (
-          <Card>
-            <SectionLabel>Topic</SectionLabel>
-            <input
-              type="text" value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleResearch()}
+          <div className="bg-bg-primary rounded-xl border border-border-primary p-5">
+            <div className="text-[13px] font-semibold text-text-primary mb-3">Topic</div>
+            <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleResearch()}
               placeholder='e.g. "AI startups funding rounds March 2026"'
-              className="w-full h-10 rounded-lg border border-[--border-secondary] px-3 text-sm text-[--text-primary] placeholder:text-[--text-tertiary] outline-none focus:border-[--border-focus] focus:ring-2 focus:ring-[--border-focus] transition-all"
+              className="w-full h-10 rounded-lg border border-border-secondary px-3 text-sm text-text-primary placeholder:text-text-tertiary outline-none focus:border-border-focus focus:ring-2 focus:ring-border-focus transition-all"
             />
             <div className="mt-4">
-              <span className="text-xs font-medium text-[--text-secondary]">Source</span>
+              <span className="text-xs font-medium text-text-secondary">Source</span>
               <div className="flex gap-1.5 mt-1.5 flex-wrap">
                 {RESEARCH_SOURCES.map((s) => (
-                  <Chip key={s.value} selected={researchSource === s.value} onClick={() => setResearchSource(s.value)}>
-                    {s.icon} {s.label}
-                  </Chip>
+                  <button key={s.value} onClick={() => setResearchSource(s.value)} className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${chip(researchSource === s.value)}`}>{s.icon} {s.label}</button>
                 ))}
               </div>
             </div>
-            <div className="mt-5">
-              <Btn onClick={handleResearch} disabled={loading || !topic.trim()}>
-                {loading ? <><Spinner /> Researching...</> : "Research"}
-              </Btn>
-            </div>
-          </Card>
+            <button onClick={handleResearch} disabled={loading || !topic.trim()} className="mt-5 h-9 px-4 rounded-lg text-sm font-medium bg-primary text-white hover:bg-primary-hover disabled:opacity-40 transition-all inline-flex items-center gap-2">
+              {loading ? <><Spinner /> Researching...</> : "Research"}
+            </button>
+          </div>
         )}
 
-        {/* ══ Step 2: Select ══ */}
         {step === 1 && (
           <div className="space-y-4">
-            <Card>
+            <div className="bg-bg-primary rounded-xl border border-border-primary p-5">
               <div className="flex items-center justify-between mb-3">
-                <SectionLabel>Articles Found</SectionLabel>
-                <span className="text-xs text-[--text-tertiary]">{selectedArticles.length} selected</span>
+                <div className="text-[13px] font-semibold text-text-primary">Articles Found</div>
+                <span className="text-xs text-text-tertiary">{selectedArticles.length} selected</span>
               </div>
               <div className="flex gap-3 mb-3">
-                <button onClick={selectAll} className="text-xs font-medium text-[--text-brand] hover:underline">Select all</button>
-                <button onClick={clearAll} className="text-xs font-medium text-[--text-secondary] hover:underline">Clear</button>
+                <button onClick={selectAll} className="text-xs font-medium text-text-brand hover:underline">Select all</button>
+                <button onClick={clearAll} className="text-xs font-medium text-text-secondary hover:underline">Clear</button>
               </div>
               <div className="space-y-1.5">
                 {articles.map((article) => (
-                  <div
-                    key={article.id}
-                    onClick={() => toggleArticle(article.id)}
-                    className={`p-3 rounded-lg border cursor-pointer transition-all ${
-                      article.selected
-                        ? "border-[--primary] bg-[--bg-brand]"
-                        : "border-[--border-primary] bg-white hover:shadow-[--shadow-sm] hover:border-[--border-secondary]"
-                    }`}
-                  >
+                  <div key={article.id} onClick={() => toggleArticle(article.id)} className={`p-3 rounded-lg border cursor-pointer transition-all ${article.selected ? "border-primary bg-bg-brand" : "border-border-primary bg-bg-primary hover:border-border-secondary"}`}>
                     <div className="flex items-start gap-2.5">
-                      <div className={`w-4 h-4 mt-0.5 rounded flex-shrink-0 flex items-center justify-center text-[10px] ${
-                        article.selected ? "bg-[--primary] text-white" : "border border-[--border-secondary] bg-white"
-                      }`}>{article.selected ? "✓" : ""}</div>
+                      <div className={`w-4 h-4 mt-0.5 rounded flex-shrink-0 flex items-center justify-center text-[10px] ${article.selected ? "bg-primary text-white" : "border border-border-secondary bg-bg-primary"}`}>{article.selected ? "✓" : ""}</div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[13px] font-medium text-[--text-primary] leading-snug">{article.title}</p>
+                        <p className="text-[13px] font-medium text-text-primary leading-snug">{article.title}</p>
                         <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                          <span className="text-[11px] font-medium text-[--text-brand]">{article.source}</span>
-                          <span className="text-[11px] text-[--text-tertiary]">{article.date}</span>
-                          {article.keyData === "News" && <span className="px-1.5 py-px rounded text-[10px] font-medium bg-[--warning-bg] text-[--warning-text]">NEWS</span>}
-                          {article.tag && <span className="px-1.5 py-px rounded text-[10px] font-medium bg-[--info-bg] text-[--info-text]">{article.tag}</span>}
+                          <span className="text-[11px] font-medium text-text-brand">{article.source}</span>
+                          <span className="text-[11px] text-text-tertiary">{article.date}</span>
+                          {article.keyData === "News" && <span className="px-1.5 py-px rounded text-[10px] font-medium bg-warning-bg text-warning-text">NEWS</span>}
+                          {article.tag && <span className="px-1.5 py-px rounded text-[10px] font-medium bg-info-bg text-info-text">{article.tag}</span>}
                         </div>
-                        <p className="text-xs text-[--text-secondary] mt-1 line-clamp-2">{article.summary}</p>
+                        <p className="text-xs text-text-secondary mt-1 line-clamp-2">{article.summary}</p>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-            </Card>
+            </div>
             {selectedArticles.length > 0 && (
-              <Btn onClick={() => { setOutputCount((prev) => Math.min(prev, selectedArticles.length)); setStep(2); }}>
-                Continue with {selectedArticles.length} article{selectedArticles.length > 1 ? "s" : ""} →
-              </Btn>
+              <button onClick={() => { setOutputCount((prev) => Math.min(prev, selectedArticles.length)); setStep(2); }} className="h-9 px-4 rounded-lg text-sm font-medium bg-primary text-white hover:bg-primary-hover transition-all inline-flex items-center gap-2">Continue with {selectedArticles.length} article{selectedArticles.length > 1 ? "s" : ""} →</button>
             )}
           </div>
         )}
 
-        {/* ══ Step 3: Format ══ */}
         {step === 2 && (
           <div className="space-y-4">
-            <Card className="space-y-5">
-              {/* Language + Format header */}
+            <div className="bg-bg-primary rounded-xl border border-border-primary p-5 space-y-5">
               <div className="flex items-center justify-between">
-                <SectionLabel>Content Format</SectionLabel>
-                <div className="flex rounded-lg overflow-hidden border border-[--border-secondary]">
+                <div className="text-[13px] font-semibold text-text-primary">Content Format</div>
+                <div className="flex rounded-lg overflow-hidden border border-border-secondary">
                   {(["en", "vn"] as const).map((l) => (
-                    <button key={l} onClick={() => setLanguage(l)}
-                      className={`px-3 py-1.5 text-xs font-medium transition-all ${language === l ? "bg-[--primary] text-white" : "bg-white text-[--text-secondary] hover:bg-[--bg-hover]"}`}
-                    >{l === "en" ? "🇺🇸 English" : "🇻🇳 Tiếng Việt"}</button>
+                    <button key={l} onClick={() => setLanguage(l)} className={`px-3 py-1.5 text-xs font-medium transition-all ${language === l ? "bg-primary text-white" : "bg-bg-primary text-text-secondary hover:bg-bg-hover"}`}>{l === "en" ? "🇺🇸 English" : "🇻🇳 Tiếng Việt"}</button>
                   ))}
                 </div>
               </div>
-
               <div className="grid grid-cols-4 gap-2">
                 {FORMATS.map((f) => (
-                  <button key={f.value} onClick={() => setFormat(f.value)}
-                    className={`p-3 rounded-lg border text-left transition-all ${format === f.value ? "border-[--primary] bg-[--bg-brand]" : "border-[--border-primary] bg-white hover:border-[--border-secondary]"}`}
-                  >
+                  <button key={f.value} onClick={() => setFormat(f.value)} className={`p-3 rounded-lg border text-left transition-all ${chip(format === f.value)}`}>
                     <div className="text-lg">{f.icon}</div>
-                    <div className="text-[13px] font-medium text-[--text-primary] mt-1">{f.label}</div>
-                    <div className="text-[11px] text-[--text-tertiary] mt-0.5">{f.desc}</div>
+                    <div className="text-[13px] font-medium text-text-primary mt-1">{f.label}</div>
+                    <div className="text-[11px] text-text-tertiary mt-0.5">{f.desc}</div>
                   </button>
                 ))}
               </div>
-
-              {/* Tone */}
               <div>
-                <SectionLabel>Tone</SectionLabel>
+                <div className="text-[13px] font-semibold text-text-primary mb-3">Tone</div>
                 <div className="grid grid-cols-3 gap-2">
                   {TONE_PRESETS.map((t) => (
-                    <button key={t.value} onClick={() => setTone(t.value)}
-                      className={`p-2.5 rounded-lg border text-left transition-all ${tone === t.value ? "border-[--primary] bg-[--bg-brand]" : "border-[--border-primary] bg-white hover:border-[--border-secondary]"}`}
-                    >
-                      <div className="text-xs font-medium text-[--text-primary]">{t.label}</div>
-                      <div className="text-[11px] text-[--text-tertiary] mt-0.5">{t.desc}</div>
+                    <button key={t.value} onClick={() => setTone(t.value)} className={`p-2.5 rounded-lg border text-left transition-all ${chip(tone === t.value)}`}>
+                      <div className="text-xs font-medium text-text-primary">{t.label}</div>
+                      <div className="text-[11px] text-text-tertiary mt-0.5">{t.desc}</div>
                     </button>
                   ))}
                 </div>
                 {tone === "custom" && (
-                  <textarea value={customTone} onChange={(e) => setCustomTone(e.target.value)}
-                    placeholder="Describe your tone..."
-                    className="mt-2 w-full rounded-lg border border-[--border-secondary] px-3 py-2 text-sm text-[--text-primary] placeholder:text-[--text-tertiary] outline-none focus:border-[--border-focus] min-h-[72px]"
-                  />
+                  <textarea value={customTone} onChange={(e) => setCustomTone(e.target.value)} placeholder="Describe your tone..."
+                    className="mt-2 w-full rounded-lg border border-border-secondary px-3 py-2 text-sm text-text-primary placeholder:text-text-tertiary outline-none focus:border-border-focus min-h-[72px]" />
                 )}
               </div>
-
-              {/* Length + Output */}
               <div className="grid grid-cols-2 gap-5">
                 <div>
-                  <SectionLabel>Length</SectionLabel>
+                  <div className="text-[13px] font-semibold text-text-primary mb-3">Length</div>
                   <div className="space-y-1.5">
                     {POST_LENGTHS.map((l) => (
-                      <button key={l.value} onClick={() => setPostLength(l.value)}
-                        className={`w-full p-2.5 rounded-lg border text-left transition-all flex justify-between items-center ${postLength === l.value ? "border-[--primary] bg-[--bg-brand]" : "border-[--border-primary] bg-white hover:border-[--border-secondary]"}`}
-                      >
-                        <span className="text-[13px] font-medium text-[--text-primary]">{l.label}</span>
-                        <span className="text-xs text-[--text-brand]">{l.words}</span>
+                      <button key={l.value} onClick={() => setPostLength(l.value)} className={`w-full p-2.5 rounded-lg border text-left transition-all flex justify-between items-center ${chip(postLength === l.value)}`}>
+                        <span className="text-[13px] font-medium text-text-primary">{l.label}</span>
+                        <span className="text-xs text-text-brand">{l.words}</span>
                       </button>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <SectionLabel>Output Posts</SectionLabel>
-                  <p className="text-xs text-[--text-secondary] mb-2">{selectedArticles.length} sources selected</p>
+                  <div className="text-[13px] font-semibold text-text-primary mb-3">Output Posts</div>
+                  <p className="text-xs text-text-secondary mb-2">{selectedArticles.length} sources selected</p>
                   <div className="flex gap-2">
                     {[1, 2, 3, 5].filter(n => n <= selectedArticles.length).map((n) => (
-                      <button key={n} onClick={() => setOutputCount(n)}
-                        className={`flex-1 py-2.5 rounded-lg border text-center transition-all ${outputCount === n ? "border-[--primary] bg-[--bg-brand]" : "border-[--border-primary] bg-white hover:border-[--border-secondary]"}`}
-                      >
-                        <div className="text-base font-bold text-[--text-primary]">{n}</div>
-                        <div className="text-[11px] text-[--text-tertiary]">post{n > 1 ? "s" : ""}</div>
+                      <button key={n} onClick={() => setOutputCount(n)} className={`flex-1 py-2.5 rounded-lg border text-center transition-all ${chip(outputCount === n)}`}>
+                        <div className="text-base font-bold text-text-primary">{n}</div>
+                        <div className="text-[11px] text-text-tertiary">post{n > 1 ? "s" : ""}</div>
                       </button>
                     ))}
                   </div>
                 </div>
               </div>
-            </Card>
-            <Btn onClick={handleWrite} disabled={loading}>
-              {loading ? <><Spinner /> Writing...</> : "Write with Claude"}
-            </Btn>
+            </div>
+            <button onClick={handleWrite} disabled={loading} className="h-9 px-5 rounded-lg text-sm font-medium bg-primary text-white hover:bg-primary-hover disabled:opacity-40 transition-all inline-flex items-center gap-2">{loading ? <><Spinner /> Writing...</> : "Write with Claude"}</button>
           </div>
         )}
 
-        {/* ══ Step 4: Output ══ */}
         {step === 3 && (
           <div className="space-y-4">
             {loading && writingIndex >= 0 && (
-              <div className="flex items-center gap-2 text-[13px] text-[--text-brand]">
-                <Spinner /> Writing post {writingIndex + 1} of {Math.min(outputCount, selectedArticles.length)}...
-              </div>
+              <div className="flex items-center gap-2 text-[13px] text-text-brand"><Spinner /> Writing post {writingIndex + 1} of {Math.min(outputCount, selectedArticles.length)}...</div>
             )}
             {posts.map((post, i) => {
               const article = articles.find((a) => a.id === post.articleId);
               const isImageLoading = imageLoadingIds.has(post.id);
               const hasContent = post.content && !post.content.startsWith("[Error:");
               return (
-                <Card key={post.id}>
+                <div key={post.id} className="bg-bg-primary rounded-xl border border-border-primary p-5">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2 min-w-0">
-                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-[--bg-brand] text-[--text-brand] flex-shrink-0">Post {i + 1}</span>
-                      {article && <span className="text-xs text-[--text-tertiary] truncate">{article.title}</span>}
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-bg-brand text-text-brand flex-shrink-0">Post {i + 1}</span>
+                      {article && <span className="text-xs text-text-tertiary truncate">{article.title}</span>}
                     </div>
                     <div className="flex gap-1.5 flex-shrink-0">
-                      <Btn variant="outline" disabled={!hasContent} onClick={() => copyPost(post.content)} className="!h-7 !px-2.5 !text-xs">Copy</Btn>
+                      <button onClick={() => copyPost(post.content)} disabled={!hasContent} className="h-7 px-2.5 rounded-md text-xs font-medium border border-border-secondary text-text-secondary hover:bg-bg-hover disabled:opacity-30 transition-all">Copy</button>
                       {!post.imageUrl && !isImageLoading && (
-                        <Btn variant="ghost" disabled={loading || !hasContent} onClick={() => handleGenerateImage(post.id)} className="!h-7 !px-2.5 !text-xs">Generate Image</Btn>
+                        <button onClick={() => handleGenerateImage(post.id)} disabled={loading || !hasContent} className="h-7 px-2.5 rounded-md text-xs font-medium bg-bg-brand text-text-brand border border-primary/30 hover:bg-primary-light disabled:opacity-30 transition-all">Generate Image</button>
                       )}
                     </div>
                   </div>
-                  <div className="whitespace-pre-wrap text-[13px] leading-relaxed rounded-lg p-4 bg-[--bg-secondary] text-[--text-primary] max-h-[480px] overflow-y-auto">
-                    {post.content ? cleanContent(post.content) : <span className="flex items-center gap-2 text-[--text-tertiary]"><Spinner /> Generating...</span>}
+                  <div className="whitespace-pre-wrap text-[13px] leading-relaxed rounded-lg p-4 bg-bg-secondary text-text-primary max-h-[480px] overflow-y-auto">
+                    {post.content ? cleanContent(post.content) : <span className="flex items-center gap-2 text-text-tertiary"><Spinner /> Generating...</span>}
                   </div>
-                  {isImageLoading && <div className="mt-3 flex items-center gap-2 text-xs text-[--text-brand]"><Spinner /> Generating infographic...</div>}
+                  {isImageLoading && <div className="mt-3 flex items-center gap-2 text-xs text-text-brand"><Spinner /> Generating infographic...</div>}
                   {post.imageUrl && (
                     <div className="mt-3">
-                      <img src={post.imageUrl} alt="Infographic" className="rounded-lg max-w-[360px] border border-[--border-primary]" />
-                      <Btn variant="outline" onClick={() => downloadImage(post.imageUrl!, post.id)} className="!h-7 !px-2.5 !text-xs mt-2">Download PNG</Btn>
+                      <img src={post.imageUrl} alt="Infographic" className="rounded-lg max-w-[360px] border border-border-primary" />
+                      <button onClick={() => downloadImage(post.imageUrl!, post.id)} className="mt-2 h-7 px-2.5 rounded-md text-xs font-medium bg-success-bg text-success-text border border-success/20 transition-all">Download PNG</button>
                     </div>
                   )}
-                </Card>
+                </div>
               );
             })}
             {!loading && posts.length > 0 && (
-              <Btn variant="outline" onClick={() => { setStep(0); setPosts([]); setArticles([]); setTopic(""); setOutputCount(1); }}>
-                ↻ Start New Pipeline
-              </Btn>
+              <button onClick={() => { setStep(0); setPosts([]); setArticles([]); setTopic(""); setOutputCount(1); }} className="h-9 px-4 rounded-lg text-sm font-medium border border-border-secondary text-text-secondary hover:bg-bg-hover transition-all">Start New Pipeline</button>
             )}
           </div>
         )}

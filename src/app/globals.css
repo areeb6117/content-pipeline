@@ -1,64 +1,45 @@
 @import "tailwindcss";
 
-:root {
-  /* Brand */
-  --primary: #155DFC;
-  --primary-hover: #1D4ED8;
-  --primary-light: #EFF6FF;
-
-  /* Text */
-  --text-primary: #262626;
-  --text-secondary: #5D6776;
-  --text-tertiary: #979AAB;
-  --text-inverse: #FFFFFF;
-  --text-brand: #155DFC;
-
-  /* Background */
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F6F7FA;
-  --bg-tertiary: #EDEEF2;
-  --bg-hover: #F5F5F5;
-  --bg-brand: #EFF6FF;
-
-  /* Border */
-  --border-primary: #ECEDF0;
-  --border-secondary: #DEDEE5;
-  --border-tertiary: #D4D4D8;
-  --border-focus: #BEDBFF;
-
-  /* Status */
-  --success: #10B981;
-  --success-bg: #ECFDF5;
-  --success-text: #047857;
-  --warning: #F59E0B;
-  --warning-bg: #FEF3C7;
-  --warning-text: #92400E;
-  --error: #EF4444;
-  --error-bg: #FEF2F2;
-  --error-text: #B91C1C;
-  --info: #3B82F6;
-  --info-bg: #EFF6FF;
-  --info-text: #1D4ED8;
-
-  /* Spacing base: 4px */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-}
-
 @theme inline {
-  --color-background: var(--bg-primary);
-  --color-foreground: var(--text-primary);
+  --color-primary: #155DFC;
+  --color-primary-hover: #1D4ED8;
+  --color-primary-light: #EFF6FF;
+
+  --color-text-primary: #262626;
+  --color-text-secondary: #5D6776;
+  --color-text-tertiary: #979AAB;
+  --color-text-brand: #155DFC;
+
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F6F7FA;
+  --color-bg-tertiary: #EDEEF2;
+  --color-bg-hover: #F5F5F5;
+  --color-bg-brand: #EFF6FF;
+
+  --color-border-primary: #ECEDF0;
+  --color-border-secondary: #DEDEE5;
+  --color-border-tertiary: #D4D4D8;
+  --color-border-focus: #BEDBFF;
+
+  --color-success: #10B981;
+  --color-success-bg: #ECFDF5;
+  --color-success-text: #047857;
+  --color-warning: #F59E0B;
+  --color-warning-bg: #FEF3C7;
+  --color-warning-text: #92400E;
+  --color-error: #EF4444;
+  --color-error-bg: #FEF2F2;
+  --color-error-text: #B91C1C;
+  --color-info: #3B82F6;
+  --color-info-bg: #EFF6FF;
+  --color-info-text: #1D4ED8;
+
   --font-sans: var(--font-inter);
 }
 
 body {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
+  background-color: #F6F7FA;
+  color: #262626;
   font-family: var(--font-inter), Inter, -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 14px;
   line-height: 1.5;
